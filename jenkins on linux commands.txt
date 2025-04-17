@@ -1,0 +1,105 @@
+--------------Jenkins Installition--------------
+url- https://medium.com/@belek.bagishbekov/how-to-install-and-configure-jenkins-on-amazon-linux-2023-a8d7463a0404
+
+
+linux commands-------
+
+#!/bin/bash
+
+#installing java
+sudo dnf update
+sudo dnf install java-17-amazon-corretto -y
+java -version
+
+#installing git
+sudo yum install git -y
+
+#installing jenkins
+
+sudo wget -O /etc/yum.repos.d/jenkins.repo \
+    https://pkg.jenkins.io/redhat-stable/jenkins.repo
+sudo rpm --import https://pkg.jenkins.io/redhat-stable/jenkins.io-2023.key
+sudo dnf install jenkins -y
+sudo systemctl enable jenkins
+sudo systemctl start jenkins
+
+#installing terraform
+
+sudo yum install -y yum-utils shadow-utils
+sudo yum-config-manager --add-repo https://rpm.releases.hashicorp.com/AmazonLinux/hashicorp.repo
+sudo yum -y install terraform
+
+# Installing kubernetes
+
+curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
+curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl.sha256"
+echo "$(cat kubectl.sha256)  kubectl" | sha256sum --check
+sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
+
+# Install AWS CLI 
+sudo yum install unzip 
+curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+unzip awscliv2.zip
+sudo ./aws/install
+
+access jenkins--------
+http://3.86.147.248:8080
+
+cat /var/lib/jenkins/secrets/initialAdminPassword
+a479ef9e828d45f8ab2b13feb453f696
+
+jk cred
+
+yaswanthpala
+yash13@may
+
+https://088285363738.signin.aws.amazon.com/console
+088285363738
+TerraformAdmin
+aws eks --region us-east-1 update-kubeconfig --name yash-eks-Ipwpncdw
+
+
+
+----------------------------------------------------------------------------------------
+az login
+--------------------------------------------
+install cli
+1 Log out of all active Azure accounts.
+
+az account clear
+
+2 Disable Windows broker config of Azure.
+
+az config set core.enable_broker_on_windows=false
+
+3 Log back into your Azure account.
+
+az login
+
+
+
+###############3
+Set the CLASSPATH on Linux
+Command Line:
+
+Find out where you have installed Java, basically, it’s in /usr/lib/jvm path. Set the CLASSPATH in /etc/environment using 
+
+sudo <editor name> /etc/environment
+Add the following lines,
+
+JAVA_HOME = "/usr/lib/jvm/<java folder (eg. java-1.8.0-openjdk-amd64>)/bin"
+export JAVA_HOME
+CLASSPATH=".:/usr/lib/jvm/<java folder>/lib:/home/name/Desktop"
+export CLASSPATH
+
+Note: Colon (:) is used as a separate directory and dot (.) is the default value of CLASSPATH in the above command.
+
+To check the current CLASSPATH, run 
+
+echo ${CLASSPATH}
+
+
+
+###########
+https://mng.workshop.aws/cloudformation/driftdetect.html
+
