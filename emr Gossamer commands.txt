@@ -1,0 +1,67 @@
+gossamer3 configure
+ 
+Config name = default
+ 
+Please choose a provider = Ping
+ 
+Please choose an MFA = None
+ 
+AWS Profile = default
+ 
+URL  = https://fssfed.ge.com/fss
+ 
+AWS URN = urn:amazon:webservices:mfa-extended
+ 
+Username = <your sso id>
+ 
+Password = <your sso password>
+ 
+Confirm = <your sso password>
+ 
+ 
+set HTTPS_PROXY=http://pitc-zscaler-aspac-bangalore3pr.proxy.corporate.ge.com:80
+ 
+gossamer3  -a default bulk-login .gossamer3_roles.yml --aws-urn=urn:amazon:webservices:mfa
+gossamer3 login -a default
+
+
+
+
+-----------------------------------
+data test cluster cli
+------------------------------------
+
+aws --no-verify-ssl cloudformation deploy --stack-name datasci-tasknode-test --template-file av-cicd-pipeline-master_v2.yaml --parameter-overrides ApplicationPrefix=datasci UAI=UAI3038827 env=datasci-dev Name=datasci-6.6.0 product=datasci GitHubURL=
+https://github.build.ge.com/AviationDAAS/emr-platform
+TeamDistributionList=503335902@ge.com KMSKey=arn:aws:kms:us-east-1:958262988361:key/7900f70a-f9bc-4e2d-839a-0813fb11fb29 TemplateConfig=true GitBranch=datasci-tasknode-config TemplateConfigFile=datasci-cluster-6-params.json BuildSpec=buildspec_v2.yaml ProdConditional=false S3FilesProd=false S3FilesProdCustomPrefix=emr/bootstrap Template=template-v2.yaml ChangeSets=true DashBoardStageConditional=true DashBoardProdConditional=false --s3-bucket med-av-daas-preprod-datasci-cicd --s3-prefix Datasci-cicd-template --profile 958262988361/av-bu-datasci-dev
+
+------------------------------------------
+
+11 min cluster came to waiting
+
+
+===================================================cli
+Stormline
+Green
+aws --no-verify-ssl cloudformation deploy --stack-name stormline-54-emr-green-talend8 --template-file av-cicd-pipeline-master_v4.yaml --parameter-overrides UAI=UAI3036038 env=stormline-dev ApplicationPrefix=stormline Name=stormline-54-emr-green GitHubURL=https://github.build.ge.com/AviationDAAS/emr-platform
+TeamDistributionList=503288832@ge.com KMSKey=arn:aws:kms:us-east-1:958262988361:key/7e5be208-c980-47f8-b061-8bb22d0d98ec TemplateConfig=true GitBranch=stormline_graviton_upgrade TemplateConfigFile=stormline-v2-params-green.json BuildSpec=buildspec_v2.yaml ProdConditional=true S3FilesProd=true S3FilesProdCustomPrefix=emr/bootstrap Template=template-v2.yaml ChangeSets=true DashBoardStageConditional=true DashBoardProdConditional=true --s3-bucket med-av-daas-preprod-stormline-cicd --s3-prefix stormline-cicd-template --profile 958262988361/av-bu-stormline-dev
+ 
+Blue
+ 
+aws --no-verify-ssl cloudformation deploy --stack-name stormline-54-emr-blue-talend8 --template-file av-cicd-pipeline-master_v4.yaml --parameter-overrides UAI=UAI3036038 env=stormline-dev ApplicationPrefix=stormline Name=stormline-54-emr-blue GitHubURL=https://github.build.ge.com/AviationDAAS/emr-platform TeamDistributionList=503335902@geaerospace.com KMSKey=arn:aws:kms:us-east-1:958262988361:key/7e5be208-c980-47f8-b061-8bb22d0d98ec TemplateConfig=true GitBranch=stormline_graviton_upgrade TemplateConfigFile=stormline-v2-params-blue.json BuildSpec=buildspec_v2.yaml ProdConditional=true S3FilesProd=true S3FilesProdCustomPrefix=emr/bootstrap Template=template-v2.yaml ChangeSets=true DashBoardStageConditional=true DashBoardProdConditional=true --s3-bucket med-av-daas-preprod-stormline-cicd --s3-prefix stormline-cicd-template --profile 958262988361/av-bu-stormline-dev
+ 
+ 
+cd /data_shared/ingest/ingestSupport/context/
+sh ContextFile_OldIp_Cleanup.sh
+ 
+=================================================================================================================================================
+ 
+for stormline need to change in parameters store
+ 
+Parameter store
+/stormline/emr/name
+
+
+
+
+
